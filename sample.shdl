@@ -1,0 +1,42 @@
+input din[7..0]
+input clk
+input mux_sel[2..0]
+VCC port { vcc } param {}
+
+next_col
+
+output dout[7..0]
+output mux_out
+output and_out
+
+next_col
+
+DFF cool_name port {
+	CLK: vcc
+}
+
+#define dff(i) DFF port { CLK: clk; D: din[i]; Q: dout[i];\
+	CLRN: vcc; PRN: vcc; }
+dff(0)
+dff(1)
+dff(2)
+dff(3)
+dff(4)
+dff(5)
+dff(6)
+dff(7)
+#undef dff
+
+next_col
+
+MUX port {
+	data[]: din[7..0]
+	sel[]: mux_sel[2..0]
+	result: mux_out
+} param {
+	WIDTH: 8
+}
+
+next_col
+
+AND2 port { din[0]; din[1]; and_out }
